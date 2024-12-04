@@ -31,8 +31,8 @@ export const Header = () => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <>
-      <Navbar fixed='top' dark expand="md" style={{borderBottom:"3px solid black", backgroundColor:"black"}}>
+    < >
+      <Navbar id='headerbar' fixed='top' dark expand="md" style={{borderBottom:"3px solid black", backgroundColor:"#011936"}}>
         <NavbarBrand href="/"><GrBlog/></NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -47,18 +47,6 @@ export const Header = () => {
                 Posts
               </NavLink>
             </NavItem>
-
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu end>
-                <DropdownItem>Option 1</DropdownItem>
-                <DropdownItem>Option 2</DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>Reset</DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
           </Nav>
           <Nav navbar>
             { !user ? <>
@@ -80,10 +68,10 @@ export const Header = () => {
               <DropdownToggle nav caret>
                 <RxAvatar/>
               </DropdownToggle>
-              <DropdownMenu end>
-                <DropdownItem>Personal data</DropdownItem>
+              <DropdownMenu end style={{backgroundColor:"#82A3A1"}}>
+                <DropdownItem style={{color:"white"}}>Personal data</DropdownItem>
                 <DropdownItem divider />
-                <DropdownItem>Delete profile</DropdownItem>
+                <DropdownItem style={{color:"white"}}>Delete profile</DropdownItem>
               </DropdownMenu>
             </UncontrolledDropdown>
             </>
