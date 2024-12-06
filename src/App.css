@@ -1,8 +1,22 @@
-.page{
-    min-height: 100vh;
-    background-color: #465362;
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+  
+  *{
+    font-family: "Montserrat", sans-serif;
+  }
+  .page{
+        min-height: 100vh;  
+        padding-top: 60px;
+        background-color: var(--color2);
+      }
+.menu{
+    border-bottom: 1px solid gray;
 }
 
-html{
-    background-color: #465362;
+.myavatar{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
 }

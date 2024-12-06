@@ -1,26 +1,35 @@
 import React from 'react'
+import { useContext } from 'react';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Slide, ToastContainer, toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserContext } from '../context/UserContext';
 
-export const Toastify = ({err,signin}) => {
+export const Toastify = ({err,signin,signup,resetPW,update}) => {
+  const {setMsg}=useContext(UserContext)//
     const navigate=useNavigate()
 
-    useEffect(()=>{
-        if(err){
-            toast.error(err,{position:"top-center",autoClose:2000,closeOnClick:true, theme:"dark", draggable:true, pauseOnHover:false,transition: Slide})
-        }else if(signin){
-            toast.success(signin,{position:"top-center",autoClose:2000,closeOnClick:true, theme:"dark", draggable:true, pauseOnHover:false,transition: Slide})
-            setTimeout(()=>navigate("/"),2000)
-        }
-
-
-    },[err,signin])
+useEffect(()=>{
+    if(err){
+        toast.error(err,{position:"top-left"})
+    }else if(signin||signup){
+        toast.success(signin||signup,{position:"top-center"})
+        setTimeout(()=>navigate('/'),2000)
+    }else if(resetPW){
+      toast.success(resetPW,{position:"top-center"})
+      setTimeout(()=>navigate('/auth/in'),2000)
+    }else if(update){
+      toast.success(update,{position:"top-center"})
+    }
+    setMsg({})//
+},[err,signin,signup,resetPW])
 
   return (
     <div>
-        <ToastContainer/>
+      <ToastContainer />
     </div>
   )
 }
+
+

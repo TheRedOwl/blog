@@ -2,6 +2,10 @@ import React from 'react'
 
 export const Posts = () => {
   return (
-    <div>Posts</div>
+    <div className='page'>
+      default Posts
+    </div>
   )
 }
+
+

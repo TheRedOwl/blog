@@ -2,6 +2,10 @@ import React from 'react'
 
 export const AddEditPost = () => {
   return (
-    <div>AddEditPost</div>
+    <div>
+      default AddEditPost
+    </div>
   )
 }
+
+
