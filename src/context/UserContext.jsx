@@ -1,6 +1,6 @@
 import React from 'react'
 import { auth } from '../utility/firebaseApp'
-import {createUserWithEmailAndPassword, onAuthStateChanged,sendPasswordResetEmail,sendSignInLinkToEmail,signInWithEmailAndPassword, signOut, updateProfile} from 'firebase/auth'
+import {createUserWithEmailAndPassword, deleteUser, onAuthStateChanged,sendPasswordResetEmail,sendSignInLinkToEmail,signInWithEmailAndPassword, signOut, updateProfile} from 'firebase/auth'
 import { createContext } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
@@ -78,11 +78,22 @@ export const UserProvider=({children})=>{
             setMsg({err:error.message})//
         }
     }
+
+    const deleteAccount=async ()=>{
+        try {
+            await deleteUser(auth.currentUser)
+            console.log("Törölve");
+            
+        } catch (error) {
+            console.log(error);
+            
+        }
+    }
   
     return(
   
         <UserContext.Provider value={{user,signInUser,logoutUser,
-            signUpUser,msg,setMsg,resetPassword,updateCredentials,updateUser}}>
+            signUpUser,msg,setMsg,resetPassword,updateCredentials,updateUser,deleteAccount}}>
             {children}
         </UserContext.Provider>
     

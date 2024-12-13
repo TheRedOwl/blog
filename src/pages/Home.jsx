@@ -2,6 +2,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { CategContext } from '../context/CategContext'
 import { Button, Card, CardBody, CardSubtitle, CardText, CardTitle } from 'reactstrap'
+import { NavLink } from "react-router-dom"
 
 export const Home = () => {
 
@@ -15,6 +16,7 @@ export const Home = () => {
         <Card
         key={obj.id}
         style={{
+          maxHeight: "530px",
           width: '18rem'
         }}
       >
@@ -24,7 +26,9 @@ export const Home = () => {
         />
         <CardBody>
           <CardTitle tag="h5">
-            {obj.name}
+            <NavLink to={"/posts?ctg="+obj.name} >
+              {obj.name}
+            </NavLink>
           </CardTitle>
           <CardSubtitle
             className="mb-2 text-muted"

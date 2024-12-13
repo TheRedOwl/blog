@@ -1,6 +1,6 @@
 //a backend kölünválasztva
 import {db} from "./firebaseApp";
-import {collection, addDoc,query, serverTimestamp, orderBy,onSnapshot } from "firebase/firestore";
+import {collection, addDoc,query, serverTimestamp, orderBy,onSnapshot, where } from "firebase/firestore";
 
 
 
@@ -17,38 +17,12 @@ export const readCategories = (setCategories) => {
   return unsubscribe;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const addPost =async (formData) => {
  console.log(formData);
 
   const collectionRef= collection(db, "posts");
   const newItem={...formData,timestamp:serverTimestamp()}
-  const newDocRef=await addDoc(collectionRef,newItem)
+  /*const newDocRef=*/await addDoc(collectionRef,newItem)
   //console.log("az új documentum azonosítója:",newDocRef.id)
 };
 
@@ -72,11 +46,11 @@ export const deletePost=async (id)=>{
 
 
 //Ez a függvény aszinkron módon működik. Az onSnapshot függvény egy eseményfigyelő, amely figyeli 
-//a Firestore adatbázisban történő változásokat. Amikor a posts gyűjteményben változás történik (pl. új bejegyzés hozzáadása), akkor az onSnapshot meghívódik, és frissíti a bejegyzéseket az aktuális adatokkal.
-export const readPosts = (setPosts,selectedCategories) => {
+*///a Firestore adatbázisban történő változásokat. Amikor a posts gyűjteményben változás történik (pl. új bejegyzés hozzáadása), akkor az onSnapshot meghívódik, és frissíti a bejegyzéseket az aktuális adatokkal.
+export const readPosts = (setPosts,selCateg) => {
   const collectionRef = collection(db, "posts");
-  const q =selectedCategories.length==0 ?  query(collectionRef, orderBy('timestamp', 'desc'))
-                                        : query(collectionRef,where('category','in',selectedCategories))
+  const q =selCateg.length==0 ? query(collectionRef, orderBy('timestamp', 'desc'))
+                              : query(collectionRef,where('category','in',selCateg))
   const unsubscribe = onSnapshot(q, (snapshot) => {
     setPosts(snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id })));
   });
@@ -97,7 +71,8 @@ export const readPost = async (id, setPost,setLikes) => {
     console.error("Hiba a dokumentum olvasása közben:", error);
   }
 };
-    
+
+ /*   
 export const editPost=async (id,{title,category,description})=>{
   const docRef= doc(db, "posts", id);
   //setDoc(docRef, {todo,done})//felülír minden mezőt, s ha nem sorolok fel mindent, akkor kitörli, s csak a megadott mezők kerülnek be

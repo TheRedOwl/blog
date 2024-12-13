@@ -11,6 +11,7 @@ import { Posts } from './pages/Posts'
 import { Auth } from './pages/Auth'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { MyProfile } from './pages/MyProfile'
+import { Detail } from './pages/Detail'
 
 const router=createBrowserRouter([
   {element:<Header/>,
@@ -19,6 +20,7 @@ const router=createBrowserRouter([
       {path:'/posts',element:<Posts />},
       {path:'/create',element:<AddEditPost/>},
       {path:'/update/:id',element:<AddEditPost/>},
+      {path:'/detail:id',element:<Detail/>},
       {path:'/auth/in',element:<Auth />},
       {path:'/auth/up',element:<Auth />},
       {path:'/pwreset',element:<PwReset />},
