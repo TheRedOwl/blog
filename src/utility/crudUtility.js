@@ -1,8 +1,6 @@
 //a backend kölünválasztva
 import {db} from "./firebaseApp";
-import {collection, addDoc,query, serverTimestamp, orderBy,onSnapshot, where } from "firebase/firestore";
-
-
+import {collection, addDoc,query, serverTimestamp, orderBy,onSnapshot, where, doc, getDoc, deleteDoc } from "firebase/firestore";
 
 
 
@@ -38,15 +36,17 @@ export const deleteFile=async (photoURL)=>{
    return false
  }
 }
+*/
+
 export const deletePost=async (id)=>{
-  //console.log('id:',id)
+  console.log('id:',id)
   const docRef= doc(db, "posts", id);
   await deleteDoc(docRef)
 }
 
 
 //Ez a függvény aszinkron módon működik. Az onSnapshot függvény egy eseményfigyelő, amely figyeli 
-*///a Firestore adatbázisban történő változásokat. Amikor a posts gyűjteményben változás történik (pl. új bejegyzés hozzáadása), akkor az onSnapshot meghívódik, és frissíti a bejegyzéseket az aktuális adatokkal.
+//a Firestore adatbázisban történő változásokat. Amikor a posts gyűjteményben változás történik (pl. új bejegyzés hozzáadása), akkor az onSnapshot meghívódik, és frissíti a bejegyzéseket az aktuális adatokkal.
 export const readPosts = (setPosts,selCateg) => {
   const collectionRef = collection(db, "posts");
   const q =selCateg.length==0 ? query(collectionRef, orderBy('timestamp', 'desc'))
@@ -63,7 +63,7 @@ export const readPost = async (id, setPost,setLikes) => {
     const docSnap = await getDoc(docRef);
     if (docSnap.exists()) {
       setPost({ ...docSnap.data(), id: docSnap.id });
-      setLikes(docSnap.data().likes.length)
+      //setLikes(docSnap.data().likes.length)
     } else {
       console.log("A dokumentum nem található.");
     }

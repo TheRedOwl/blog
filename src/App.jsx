@@ -20,7 +20,7 @@ const router=createBrowserRouter([
       {path:'/posts',element:<Posts />},
       {path:'/create',element:<AddEditPost/>},
       {path:'/update/:id',element:<AddEditPost/>},
-      {path:'/detail:id',element:<Detail/>},
+      {path:'/detail/:id',element:<Detail/>},
       {path:'/auth/in',element:<Auth />},
       {path:'/auth/up',element:<Auth />},
       {path:'/pwreset',element:<PwReset />},

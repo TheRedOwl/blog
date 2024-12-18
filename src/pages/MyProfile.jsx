@@ -4,7 +4,7 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { UserContext } from "../context/UserContext";
 import { useState } from "react";
-import { uploadFile } from "../utility/uploadFile";
+import { delPhoto, uploadFile } from "../utility/uploadFile";
 import { BarLoader } from "react-spinners";
 import { Toastify } from "../components/Toastify";
 import { useEffect } from "react";
@@ -13,7 +13,7 @@ import { useConfirm } from "material-ui-confirm"
 import { useNavigate } from "react-router-dom";
 
 export const MyProfile = () => {
-    const { user, updateUser, msg, deleteAccount } = useContext(UserContext);
+    const { user, updateUser, msg, deleteAccount, logoutUser } = useContext(UserContext);
     const [photo, setPhoto] = useState(null);
     const [loading, setLoading] = useState(false);
     const [avatar, setAvatar] = useState(null);
@@ -63,6 +63,9 @@ export const MyProfile = () => {
 
       await deleteAccount()
       logoutUser()
+      delPhoto(user.photoURL.split("/").pop())
+      console.log(user);
+      
       navigate("/")
 
       } catch (error) {
@@ -119,7 +122,7 @@ export const MyProfile = () => {
 
                 {loading && <BarLoader />}
                 {msg && <Toastify {...msg} />}
-                {avatar && <img src={avatar} />}
+                {avatar && <img className="img-fluid" src={avatar} />}
             </div>
             <button className="btn btn-danger m-5" onClick={handleDelete}>Fiók törlése</button>
         </div>
