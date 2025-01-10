@@ -26,9 +26,7 @@ export const Home = () => {
         />
         <CardBody>
           <CardTitle tag="h5">
-            <NavLink to={"/posts?ctg="+obj.name} >
               {obj.name}
-            </NavLink>
           </CardTitle>
           <CardSubtitle
             className="mb-2 text-muted"
@@ -40,7 +38,9 @@ export const Home = () => {
             Some quick example text to build on the card title and make up the bulk of the card‘s content.
           </CardText>
           <Button>
-            Button
+            <NavLink to={'/posts?ctg='+obj.name} >
+              Go to page
+            </NavLink>
           </Button>
         </CardBody>
       </Card>

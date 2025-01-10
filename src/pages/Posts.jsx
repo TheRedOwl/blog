@@ -6,6 +6,7 @@ import { readPosts } from "../utility/crudUtility";
 import { sanitizeHTML } from "../utility/utils";
 import { Categories } from "../components/Categories";
 import { useNavigate, useSearchParams} from "react-router-dom"
+import { SearchBox } from "../components/SearchBox";
 
 export const Posts = () => {    
     const [searchParams]=useSearchParams()
@@ -18,15 +19,16 @@ export const Posts = () => {
 
     useEffect(() => {
         readPosts(setPosts,selCateg);
-    }, []);
+    }, [selCateg]);
 
     posts.length > 0 && console.log(posts);
 
     return (
         <div className="page">
-            <div style={{ display: "flex", flexDirection:"column", justifyContent: "center" }}>
-              <div>
+            <div style={{ display: "flex", flexDirection:"column", justifyContent: "space-around" }}>
+              <div style={{display:"flex", flexDirection:"column", justifyContent:"center", alignItems:"center"}}>
                 <Categories selCateg={selCateg} setSelCateg={setSelCateg} />
+                {posts && <SearchBox items={posts.map(obj=>({id:obj.id,name:obj.title}))}/>}
               </div>
                 <div
                     style={{
@@ -36,15 +38,15 @@ export const Posts = () => {
                         gap: "10px",
                     }}
                 >
-                    {posts.length > 0 &&
-                        posts.map((obj) => (
+                    {posts?.length > 0 &&
+                        posts.map(obj => (
                             <Card
                                 key={obj.id}
                                 style={{
                                     maxHeight: "530px",
                                     width: "18rem",
                                 }}
-                                onClick={()=>navigate("/detail/"+obj.id)}
+                                onClick={()=>navigate('/detail/'+obj.id)}
                             >
                                 <img alt="Sample" src={obj.photo.url} />
                                 <CardBody>

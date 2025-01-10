@@ -26,8 +26,9 @@ export const Header = () => {
     const [avatar, setAvatar] = useState(null);
 
     useEffect(() => {
-        user?.photoURL && setAvatar(extractUrlAndId(user.photoURL).url);
-    }, [user]);
+        user?.photoURL && setAvatar(extractUrlAndId(user.photoURL).url)
+        !user && setAvatar(null)
+    },[user,user?.photoURL]);
 
     console.log(user);
 

@@ -1,7 +1,7 @@
 import React from "react";
 import { useContext } from "react";
-import { FormGroup, Input, Label } from "reactstrap";
 import { CategContext } from "../context/CategContext";
+import { Checkbox, FormControlLabel, FormGroup } from "@mui/material";
 
 export const Categories = ({selCateg,setSelCateg}) => {
     const {categories} = useContext(CategContext)
@@ -15,9 +15,8 @@ export const Categories = ({selCateg,setSelCateg}) => {
         <div>
             
                 {categories && categories.map(obj=>
-                    <FormGroup check inline key={obj.name}>
-                        <Input id="checkbox2" value={obj.name} type="checkbox" onChange={handleChange} checked={selCateg.includes(obj.name)} />
-                        <Label check>{obj.name}</Label>
+                    <FormGroup key={obj.name}>
+                        <FormControlLabel control={<Checkbox onChange={handleChange} value={obj.name} checked={selCateg.includes(obj.name)}  />} label={obj.name} />
                     </FormGroup>
                 )}
             

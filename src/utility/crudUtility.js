@@ -1,6 +1,6 @@
 //a backend kölünválasztva
 import {db} from "./firebaseApp";
-import {collection, addDoc,query, serverTimestamp, orderBy,onSnapshot, where, doc, getDoc, deleteDoc } from "firebase/firestore";
+import {collection, addDoc,query, serverTimestamp, orderBy,onSnapshot, where, doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 
 
 
@@ -57,13 +57,16 @@ export const readPosts = (setPosts,selCateg) => {
   return unsubscribe;
 };
 
-export const readPost = async (id, setPost,setLikes) => {
+export const readPost = async (id, setPost) => {
   const docRef = doc(db, "posts", id);
+  
   try{
     const docSnap = await getDoc(docRef);
+    const unsubscribe=onSnapshot(docRef,(snapshot)=>{
+      setPost({...snapshot.data(),id:snapshot.id})
+    })
     if (docSnap.exists()) {
       setPost({ ...docSnap.data(), id: docSnap.id });
-      //setLikes(docSnap.data().likes.length)
     } else {
       console.log("A dokumentum nem található.");
     }
@@ -72,15 +75,15 @@ export const readPost = async (id, setPost,setLikes) => {
   }
 };
 
- /*   
-export const editPost=async (id,{title,category,description})=>{
+ 
+export const updatePost=async (id,{title,category,story})=>{
   const docRef= doc(db, "posts", id);
   //setDoc(docRef, {todo,done})//felülír minden mezőt, s ha nem sorolok fel mindent, akkor kitörli, s csak a megadott mezők kerülnek be
-  await updateDoc(docRef, {title,category,description})//csak azt a mezőt írja felül amit megadok
+  await updateDoc(docRef, {title,category,story})//csak azt a mezőt írja felül amit megadok
   //updateDoc(docRef, {category})
-  //updateDoc(docRef, {description})
+  //updateDoc(docRef, {story})
 }
-
+/*
 export const editLikes=async (postId,userId)=>{
   console.log(postId,userId);
   const docRef= doc(db, "posts", postId);
@@ -176,3 +179,21 @@ export const deleteSelectedPosts=async (selection)=>{
   })
 }
 */
+export const toggleLike=async(uid,id)=>{
+  //uid ha már benne van , akkor törölölni
+  const docRef = doc(db,"posts", id);
+  const docSnap = await getDoc(docRef);
+  const likesArr=docSnap.data().likes || []
+  if(likesArr.includes(uid)){
+    await updateDoc(docRef,{likes:likesArr.filter(id=>id!=uid)})
+    console.log("like törlés")
+  }else{
+    await updateDoc(docRef,{likes:[...likesArr,uid]})
+    console.log("like hozzáadás")
+  }
+}
+export const readLikes = async(id,setLikesNr)=>{
+  const docRef = doc(db,"posts",id)
+  const docSnap = await getDoc(docRef)
+  setLikesNr(docSnap.data().likes.length)
+}

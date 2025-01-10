@@ -1,12 +1,15 @@
 import React from 'react'
 import { useEffect } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { deletePost, readPost } from '../utility/crudUtility'
+import { deletePost, readLikes, readPost, toggleLike } from '../utility/crudUtility'
 import { useState } from 'react'
 import parse from 'html-react-parser'
 import { MdDelete } from "react-icons/md";
 import { useConfirm } from 'material-ui-confirm'
 import { delPhoto } from '../utility/uploadFile'
+import { UserContext } from '../context/UserContext'
+import { Alert } from '../components/Alert'
+import { useContext } from 'react'
 
 
 export const Detail = () => {
@@ -16,6 +19,8 @@ export const Detail = () => {
     const params=useParams()
     const navigate=useNavigate()
     const confirm=useConfirm()
+    const {user} = useContext(UserContext)
+    const[txt,setTxt]=useState(null)
 
     console.log(params.id);
     
@@ -44,6 +49,11 @@ export const Detail = () => {
         
       }
     }
+    const handleLikes=()=>{
+      if(!user) setTxt("Valami szöveg")
+        else{
+          toggleLike(user.uid,post.id)
+    }}
 
   return (
     <div className='page'>
@@ -55,8 +65,17 @@ export const Detail = () => {
         </>
       }
       <button className='btn btn-secondary' onClick={()=>navigate('/posts')}>vissza</button>
-      <button className='btn btn-danger' onClick={handleDelete}><MdDelete/></button>
+      <button onClick={handleLikes}>like</button>
+      {post && <span>Likes number:{post?.likes.length}</span>}
+      {user && post && (user.uid==post.userId)&&
+        <>
+        <button className='btn btn-danger' onClick={handleDelete}><MdDelete/></button>
+        <button onClick={()=>navigate("/update/"+post.id)}>edit post...</button>
+        </>
+    }
+
       </div>
+      {txt && <Alert txt={txt} err={false}/>}
       
     </div>
   )
