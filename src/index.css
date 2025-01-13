@@ -1,5 +1,6 @@
 :root{
-    --color1:#000000;
-    --color2:#4e36ea;
-    --bgColor:rgb(123,123,23) ;
+    --color1:#ffffff;
+    --color2:#3d3d3d;
+    --bgColor:rgb(143, 31, 31) ;
+    --greyColor:rgb(170, 170, 170)
 }
