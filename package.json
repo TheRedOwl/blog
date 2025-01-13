@@ -13,6 +13,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/material": "^6.2.0",
+    "@re-dev/react-truncate": "^0.4.4",
     "axios": "^1.7.9",
     "blog": "link:",
     "bootstrap": "^5.3.3",
