@@ -11,7 +11,6 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem,
-    NavbarText,
 } from "reactstrap";
 import { FaBlog } from "react-icons/fa";
 import { RxAvatar } from "react-icons/rx";
@@ -42,29 +41,29 @@ export const Header = () => {
                 className="menu"
                 style={{
                     borderBottom: "1px solid gray",
-                    backgroundColor: "rgb(171, 169, 38)",
+                    backgroundColor: "var(--bgColor)",
                 }}
             >
                 <NavbarBrand href="/">
-                    <FaBlog />
+                    <FaBlog style={{color:"var(--color1)", width:"20px !important", height:"20px !important"}} />
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                     <Nav className="me-auto" navbar>
                         <NavItem>
-                            <NavLink className="nav-link" to="/">
+                            <NavLink className="nav-link" to="/" style={{fontSize:"20px", fontWeight:"bolder", color:"var(--color1)"}}>
                                 Főoldal
                             </NavLink>
                         </NavItem>
 
                         <NavItem>
-                            <NavLink className="nav-link" to="/posts">
+                            <NavLink className="nav-link" to="/posts" style={{fontSize:"20px", color:"var(--greyColor)"}}>
                                 Posztok
                             </NavLink>
                         </NavItem>
                         {user && (
                             <NavItem>
-                                <NavLink className="nav-link" to="/create">
+                                <NavLink className="nav-link" to="/create" style={{fontSize:"20px", color:"var(--greyColor)"}}>
                                     Új bejegyzés
                                 </NavLink>
                             </NavItem>
@@ -75,12 +74,12 @@ export const Header = () => {
                         {!user ? (
                             <>
                                 <NavItem>
-                                    <NavLink className="nav-link" to="/auth/in">
+                                    <NavLink className="nav-link" to="/auth/in" style={{fontSize:"20px", fontWeight:"bolder", color:"var(--color1)"}}>
                                         Belépés
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
-                                    <NavLink className="nav-link" to="/auth/up">
+                                    <NavLink className="nav-link" to="/auth/up" style={{fontSize:"20px", fontWeight:"bolder", color:"var(--color1)"}}>
                                         Regisztráció
                                     </NavLink>
                                 </NavItem>
@@ -92,6 +91,7 @@ export const Header = () => {
                                         className="nav-link"
                                         to="/"
                                         onClick={() => logoutUser()}
+                                        style={{fontSize:"20px", fontWeight:"bolder", color:"var(--color1)"}}
                                     >
                                         Kijelentkezés
                                     </NavLink>
@@ -115,6 +115,7 @@ export const Header = () => {
                                             <NavLink
                                                 className="nav-link"
                                                 to="/profile"
+                                                style={{color:"var(--color2)", fontWeight:"bolder"}}
                                             >
                                                 {" "}
                                                 Személyes adatok

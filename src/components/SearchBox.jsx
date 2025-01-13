@@ -39,8 +39,8 @@ export const SearchBox = ({items}) => {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <div style={{ width: 400 }}>
+      <header className="App-header" style={{width:"100%", display:"flex", justifyContent:"center"}}>
+        <div className='searchBar'>
           <ReactSearchAutocomplete
             items={items}
             onSearch={handleOnSearch}
@@ -50,6 +50,7 @@ export const SearchBox = ({items}) => {
             autoFocus
             formatResult={formatResult}
             styling={{zIndex:"100"}}
+            style={{backgroundColor:"var(--greyColor) !important"}}
           />
         </div>
       </header>
