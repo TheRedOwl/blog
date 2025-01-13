@@ -19,14 +19,13 @@ export const PwReset = () => {
   return (
     <div className='page'>
     <div style={midleStyle}>
-     <h3>Jelszó módosítás</h3>
-     <Form onSubmit={handleSubmit}>
+     <h3 style={{color:"var(--color1)", textAlign:"center"}}>Jelszó módosítás</h3>
+     <Form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column"}}>
        <FormGroup>
-         <Label > Email  </Label>
          <Input   name="email"    placeholder="email"    type="email"    />
        </FormGroup>
        
-       <Button> Új jelszó igénlése  </Button>
+       <Button> Új jelszó igénylése  </Button>
      </Form>
      
      {msg && <Toastify  {...msg}/>}

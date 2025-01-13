@@ -8,54 +8,51 @@ import { midleStyle } from '../utils'
 
 
 export const Auth = () => {
-  const {user,signInUser,signUpUser,msg}=useContext(UserContext)
-  const navigate=useNavigate()
+  const { user, signInUser, signUpUser, msg } = useContext(UserContext)
+  const navigate = useNavigate()
 
-  const location=useLocation()
+  const location = useLocation()
   console.log(location.pathname);
-  const isSignIn=location.pathname=='/auth/in'//true vagy false
-  
-console.log(msg);
+  const isSignIn = location.pathname == '/auth/in'//true vagy false
 
-  const handleSubmit=(event)=>{
+  console.log(msg);
+
+  const handleSubmit = (event) => {
     event.preventDefault
-     const data=new FormData(event.currentTarget)
-    console.log(data.get('email'),data.get('password'),data.get('displayName')); 
-    if(isSignIn){
-      signInUser(data.get('email'),data.get('password'))
-    }else{
+    const data = new FormData(event.currentTarget)
+    console.log(data.get('email'), data.get('password'), data.get('displayName'));
+    if (isSignIn) {
+      signInUser(data.get('email'), data.get('password'))
+    } else {
       //regisztráció
-      signUpUser(data.get('email'),data.get('password'),data.get('displayName'))
+      signUpUser(data.get('email'), data.get('password'), data.get('displayName'))
     }
-      
+
   }
 
- console.log(user);
-  
+  console.log(user);
+
   return (
     <div className='page'>
-     <div style={midleStyle}>
-      <h3>{isSignIn ? 'Bejelentkezés' : 'Regisztráció'}</h3>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label > Email  </Label>
-          <Input   name="email"    placeholder="email"    type="email"    />
-        </FormGroup>
-        <FormGroup>
-          <Label > Password</Label>
-          <Input   name="password"    type="password"  />
-        </FormGroup>
-        {!isSignIn &&
-         <FormGroup>
-          <Label > Felhasználónév:</Label>
-          <Input   name="displayName"    type="text"  />
-        </FormGroup>
-        }
-        <Button> Submit  </Button>
-      </Form>
-      <a href="#" onClick={()=>navigate('/pwreset')}>Elfelejtett jelszó...</a>
-      {msg && <Toastify  {...msg}/>}
-     </div>
+      <div style={midleStyle}>
+        <h3 style={{ color: "var(--color1)" }}>{isSignIn ? 'Bejelentkezés' : 'Regisztráció'}</h3>
+        <Form onSubmit={handleSubmit} style={{display:"flex", flexDirection:"column"}}>
+          {!isSignIn &&
+            <FormGroup>
+              <Input name="displayName" placeholder="username" type="text" />
+            </FormGroup>
+          }
+          <FormGroup>
+            <Input name="password" placeholder="password" type="password" />
+          </FormGroup>
+          <FormGroup>
+            <Input name="email" placeholder="email" type="email" />
+          </FormGroup>
+          <Button style={{ backgroundColor: "var(--bgColor)", marginTop:"20px", marginBottom:"10px" }}> Submit  </Button>
+        </Form>
+        <a href="#" onClick={() => navigate('/pwreset')} style={{ color: "var(--color1)" }}>Elfelejtett jelszó...</a>
+        {msg && <Toastify  {...msg} />}
+      </div>
     </div>
   )
 }

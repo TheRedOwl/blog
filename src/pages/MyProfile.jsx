@@ -76,20 +76,22 @@ export const MyProfile = () => {
 
     return (
         <div className="page">
-            <div>
-                <h3>Felhasználói fiók beállitás</h3>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div>
-                        <label>Felhasználónév:</label>
+            <div style={{display:"flex", flexDirection:"column", justifyContent:"space-around"}}>
+                <h1 style={{ fontWeight:"bolder", color:"var(--color1)"}}>Felhasználói fiók beállitás</h1>
+                <form onSubmit={handleSubmit(onSubmit)} style={{display:"flex", alignItems:"center", flexDirection:"column"}}>
+                    <div style={{fontSize:"20px", fontWeight:"bolder", color:"var(--color1)", display:"flex", justifyContent:"space-between !important", alignItems:"center"}}>
+                        <label >Felhasználónév:</label>
                         <input
+                            style={{borderRadius:"15px", padding:"10px", margin:"20px"}}
                             {...register("displayName")}
                             placeholder="felhasználónév"
                             type="text"
                         />
                     </div>
                     <div>
-                        <label>Avatar</label>
+                        <label style={{fontSize:"20px", fontWeight:"bolder", color:"var(--color1)"}}>Avatar picture: </label>
                         <input
+                            style={{fontSize:"20px", color:"var(--color1)"}}
                             {...register("file", {
                                 validate: (value) => {
                                     if (!value[0]) return true;
@@ -117,14 +119,16 @@ export const MyProfile = () => {
                         />
                         <p className="text-danger">{errors?.file?.message}</p>
                     </div>
-                    <input type="submit" />
+                    <input type="submit" style={{maxWidth:"100px", borderRadius:"30px", padding:"20px", color:"var(--bgColor)", fontWeight:"bolder"}}/>
                 </form>
 
                 {loading && <BarLoader />}
                 {msg && <Toastify {...msg} />}
                 {avatar && <img className="img-fluid" src={avatar} />}
             </div>
-            <button className="btn btn-danger m-5" onClick={handleDelete}>Fiók törlése</button>
+            <div>
+                <button className="btn m-5" style={{backgroundColor:"var(--bgColor)", color:"var(--color1)", position:"absolute", bottom:"2px",right:"2px", boxShadow:"black 2px 5px 15px 5px"}} onClick={handleDelete}>Fiók törlése</button>
+            </div>
         </div>
     );
 };
